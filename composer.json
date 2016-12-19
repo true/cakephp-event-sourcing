@@ -1,0 +1,12 @@
+{
+    "name": "true/event-sourcing",
+    "type": "cakephp-plugin",
+    "require": {
+        "cakephp/cakephp": "~3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BroadHorizon\\EventSourcing\\": "src"
+        }
+    }
+}
