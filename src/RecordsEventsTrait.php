@@ -39,7 +39,7 @@ trait RecordsEventsTrait
      *
      * @return void
      */
-    protected function applyEvent(EventInterface $event)
+    public function applyEvent(EventInterface $event)
     {
         $methodName = $this->getApplyMethodName($event);
         if (! method_exists($this, $methodName)) {

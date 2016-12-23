@@ -6,7 +6,6 @@ use BroadHorizon\EventSourcing\CommandInterface;
 use BroadHorizon\EventSourcing\Exception\ValidationException;
 use BroadHorizon\EventSourcing\Payload;
 use Cake\Form\Form;
-use League\Tactician\CommandBus;
 
 class CommandForm extends Form
 {
@@ -14,17 +13,12 @@ class CommandForm extends Form
      * @var string
      */
     protected $commandClassName;
-    /**
-     * @var CommandBus
-     */
-    protected $commandBus;
 
-    public function __construct(string $commandClassName, CommandBus $commandBus)
+    public function __construct(string $commandClassName)
     {
         $this->commandClassName = $commandClassName;
 
         $this->validator($commandClassName::validator());
-        $this->commandBus = $commandBus;
     }
 
     /**
