@@ -69,6 +69,6 @@ class EventHandlerListener implements Listener
             );
         }
 
-        return $handler->{$methodName}($event);
+        return $handler->{$methodName}($event, $next);
     }
 }
