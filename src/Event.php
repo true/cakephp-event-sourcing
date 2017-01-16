@@ -19,10 +19,6 @@ abstract class Event implements EventInterface
         $this->version = $version;
     }
 
-    abstract public function getPayload() : array;
-
-    abstract static function fromPayload(array $payload): EventInterface;
-
     public static function fromEventPayload(string $type, string $namespace, int $version, array $payload) : EventInterface
     {
         /** @var Event $class */

@@ -8,9 +8,9 @@ interface EventInterface
 
     public function setVersion(int $version);
 
-    public function getPayload() : array;
+    public function toPayload() : array;
 
-    static function fromPayload(array $payload): EventInterface;
+    static function fromPayload($id, array $payload): EventInterface;
 
     public static function fromEventPayload(string $type, string $namespace, int $version, array $payload) : EventInterface;
 

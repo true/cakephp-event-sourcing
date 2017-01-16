@@ -54,7 +54,7 @@ class EventSourcedBehavior extends Behavior
             $eventEntity = $events->newEntity([
                 'entity_id' => $entity->id,
                 'type' => Event::type($event),
-                'payload' => json_encode($event->getPayload()),
+                'payload' => json_encode($event->toPayload()),
             ]);
 
             $events->save($eventEntity);
