@@ -12,12 +12,12 @@ class AmqpMessageQueue implements MessageQueueInterface
     /**
      * @var \Bunny\Client
      */
-    protected $_client;
+    protected $client;
 
     /**
      * @var \Bunny\Channel
      */
-    protected $_channel;
+    protected $channel;
 
     /**
      * __construct method
@@ -27,6 +27,12 @@ class AmqpMessageQueue implements MessageQueueInterface
     public function __construct(array $config = [])
     {
         $this->config($config);
+        $this->client = new Client([
+            'host' => $this->config('host'),
+            'vhost' => $this->config('path'),
+            'username' => $this->config('username'),
+            'password' => $this->config('password'),
+        ]);
     }
 
     /**
@@ -41,7 +47,7 @@ class AmqpMessageQueue implements MessageQueueInterface
             $this->connect();
         }
 
-        $this->_channel->publish($body, $headers, $exchange ?? (string)$this->config('exchange'), $routingKey);;
+        $this->channel->publish($body, $headers, $exchange ?? (string)$this->config('exchange'), $routingKey);;
     }
 
     /**
@@ -50,12 +56,11 @@ class AmqpMessageQueue implements MessageQueueInterface
     private function connect()
     {
         try {
-            $this->getClient()->connect();
+            $this->client->connect();
+            $this->channel = $this->_client->channel();
         } catch (\Exception $exception) {
             debug($exception);
         }
-
-        $this->_channel = $this->_client->channel();
     }
 
     /**
@@ -63,23 +68,6 @@ class AmqpMessageQueue implements MessageQueueInterface
      */
     private function isConnected()
     {
-        return $this->getClient()->isConnected();
-    }
-
-    /**
-     * @return Client
-     */
-    private function getClient()
-    {
-        if (! $this->_client) {
-            $this->_client = new Client([
-                'host' => $this->config('host'),
-                'vhost' => $this->config('path'),
-                'username' => $this->config('username'),
-                'password' => $this->config('password'),
-            ]);
-        }
-
-        return $this->_client;
+        return $this->client->isConnected();
     }
 }
