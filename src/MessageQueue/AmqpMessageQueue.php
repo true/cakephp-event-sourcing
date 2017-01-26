@@ -3,51 +3,71 @@
 namespace BroadHorizon\EventSourcing\MessageQueue;
 
 use Bunny\Client;
+use Cake\Core\InstanceConfigTrait;
 
-class AmqpMessageQueue extends BaseMessageQueue
+class AmqpMessageQueue implements MessageQueueInterface
 {
+    use InstanceConfigTrait;
 
     /**
      * @var \Bunny\Client
      */
-    protected $_client;
+    protected $client;
 
     /**
      * @var \Bunny\Channel
      */
-    protected $_channel;
+    protected $channel;
 
-    public function connect()
+    /**
+     * __construct method
+     *
+     * @param array $config Configuration array
+     */
+    public function __construct(array $config = [])
     {
-        try {
-            $this->_client->connect();
-        } catch (\Exception $exception) {
-            debug($exception);
-        }
-
-        $this->_channel = $this->_client->channel();
+        $this->config($config);
+        $this->client = new Client([
+            'host' => $this->config('host'),
+            'vhost' => $this->config('path'),
+            'username' => $this->config('username'),
+            'password' => $this->config('password'),
+        ]);
     }
 
-    public function isConnected()
-    {
-        if (!$this->_client) {
-            $this->_client = new Client([
-                'host' => $this->config('host'),
-                'vhost' => $this->config('path'),
-                'username' => $this->config('username'),
-                'password' => $this->config('password'),
-            ]);
-        }
-
-        return $this->_client->isConnected();
-    }
-
-    public function publish($body, array $headers = [], $routingKey = '', $exchange = null)
+    /**
+     * @param string $body
+     * @param array $headers
+     * @param string $routingKey
+     * @param string $exchange
+     */
+    public function publish(string $body, array $headers = [], string $routingKey = '', string $exchange = '')
     {
         if (!$this->isConnected()) {
             $this->connect();
         }
 
-        $this->_channel->publish($body, $headers, $exchange ?? $this->config('exchange'), $routingKey);;
+        $this->channel->publish($body, $headers, $exchange ?? (string)$this->config('exchange'), $routingKey);;
+    }
+
+    /**
+     *
+     */
+    private function connect()
+    {
+        try {
+            $this->client->connect();
+            $this->channel = $this->_client->channel();
+        } catch (\Exception $exception) {
+            debug($exception);
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    private function isConnected()
+    {
+        return $this->client->isConnected();
     }
 }

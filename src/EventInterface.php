@@ -4,17 +4,50 @@ namespace BroadHorizon\EventSourcing;
 
 interface EventInterface
 {
+    /**
+     * @return int
+     */
     public function getVersion() : int;
 
+    /**
+     * @param int $version
+     */
     public function setVersion(int $version);
 
+    /**
+     * @return array
+     */
     public function toPayload() : array;
 
+    /**
+     * @param $id
+     * @param array $payload
+     *
+     * @return EventInterface
+     */
     static function fromPayload($id, array $payload): EventInterface;
 
-    public static function fromEventPayload(string $type, string $namespace, int $version, array $payload) : EventInterface;
+    /**
+     * @param string $type
+     * @param string $namespace
+     * @param int $version
+     * @param string $id
+     * @param array $payload
+     *
+     * @return EventInterface
+     */
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload) : EventInterface;
 
-    public static function type(EventInterface $event);
+    /**
+     * @return string
+     */
+    public function getType(): string;
 
-    public static function classFromType(string $type, string $namespace);
+    /**
+     * @param string $type
+     * @param string $namespace
+     *
+     * @return string
+     */
+    public static function classFromType(string $type, string $namespace): string;
 }
