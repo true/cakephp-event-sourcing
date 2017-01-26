@@ -57,7 +57,7 @@ class AmqpMessageQueue implements MessageQueueInterface
     {
         try {
             $this->client->connect();
-            $this->channel = $this->_client->channel();
+            $this->channel = $this->client->channel();
         } catch (\Exception $exception) {
             debug($exception);
         }
