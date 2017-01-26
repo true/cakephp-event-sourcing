@@ -10,16 +10,6 @@ class AmqpMessageQueue implements MessageQueueInterface
     use InstanceConfigTrait;
 
     /**
-     * Default config for this class
-     *
-     * @var array
-     */
-    protected $_defaultConfig = [
-        'exchange' => '',
-        'queue' => '',
-    ];
-
-    /**
      * @var \Bunny\Client
      */
     protected $_client;
@@ -40,18 +30,18 @@ class AmqpMessageQueue implements MessageQueueInterface
     }
 
     /**
-     * @param $body
+     * @param string $body
      * @param array $headers
      * @param string $routingKey
-     * @param null $exchange
+     * @param string $exchange
      */
-    public function publish($body, array $headers = [], $routingKey = '', $exchange = null)
+    public function publish(string $body, array $headers = [], string $routingKey = '', string $exchange = '')
     {
         if (!$this->isConnected()) {
             $this->connect();
         }
 
-        $this->_channel->publish($body, $headers, $exchange ?? $this->config('exchange'), $routingKey);;
+        $this->_channel->publish($body, $headers, $exchange ?? (string)$this->config('exchange'), $routingKey);;
     }
 
     /**
