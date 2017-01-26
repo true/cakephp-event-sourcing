@@ -15,7 +15,7 @@ class EventQueueingBehavior extends Behavior
         $unpublishedEvents = $entity->getUnpublishedEvents();
         foreach ($unpublishedEvents as $event) {
             MessageQueue::get('default')->publish(
-                json_encode($event->getPayload()),
+                json_encode($event->toPayload()),
                 [
                     'application' => MessageQueue::config('default')['exchange'],
                     'type' => Event::type($event),
