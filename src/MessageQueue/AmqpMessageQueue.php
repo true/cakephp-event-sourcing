@@ -3,9 +3,21 @@
 namespace BroadHorizon\EventSourcing\MessageQueue;
 
 use Bunny\Client;
+use Cake\Core\InstanceConfigTrait;
 
-class AmqpMessageQueue extends BaseMessageQueue
+class AmqpMessageQueue implements MessageQueueInterface
 {
+    use InstanceConfigTrait;
+
+    /**
+     * Default config for this class
+     *
+     * @var array
+     */
+    protected $_defaultConfig = [
+        'exchange' => '',
+        'queue' => '',
+    ];
 
     /**
      * @var \Bunny\Client
@@ -17,10 +29,38 @@ class AmqpMessageQueue extends BaseMessageQueue
      */
     protected $_channel;
 
-    public function connect()
+    /**
+     * __construct method
+     *
+     * @param array $config Configuration array
+     */
+    public function __construct(array $config = [])
+    {
+        $this->config($config);
+    }
+
+    /**
+     * @param $body
+     * @param array $headers
+     * @param string $routingKey
+     * @param null $exchange
+     */
+    public function publish($body, array $headers = [], $routingKey = '', $exchange = null)
+    {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        $this->_channel->publish($body, $headers, $exchange ?? $this->config('exchange'), $routingKey);;
+    }
+
+    /**
+     *
+     */
+    private function connect()
     {
         try {
-            $this->_client->connect();
+            $this->getClient()->connect();
         } catch (\Exception $exception) {
             debug($exception);
         }
@@ -28,9 +68,20 @@ class AmqpMessageQueue extends BaseMessageQueue
         $this->_channel = $this->_client->channel();
     }
 
-    public function isConnected()
+    /**
+     * @return bool
+     */
+    private function isConnected()
     {
-        if (!$this->_client) {
+        return $this->getClient()->isConnected();
+    }
+
+    /**
+     * @return Client
+     */
+    private function getClient()
+    {
+        if (! $this->_client) {
             $this->_client = new Client([
                 'host' => $this->config('host'),
                 'vhost' => $this->config('path'),
@@ -39,15 +90,6 @@ class AmqpMessageQueue extends BaseMessageQueue
             ]);
         }
 
-        return $this->_client->isConnected();
-    }
-
-    public function publish($body, array $headers = [], $routingKey = '', $exchange = null)
-    {
-        if (!$this->isConnected()) {
-            $this->connect();
-        }
-
-        $this->_channel->publish($body, $headers, $exchange ?? $this->config('exchange'), $routingKey);;
+        return $this->_client;
     }
 }
