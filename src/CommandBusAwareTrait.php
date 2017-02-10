@@ -11,7 +11,7 @@ trait CommandBusAwareTrait
      */
     protected $commandBus;
 
-    public function getCommandBus() : CommandBus
+    public function getCommandBus(): CommandBus
     {
         return $this->commandBus;
     }

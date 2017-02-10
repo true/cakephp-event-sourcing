@@ -20,7 +20,7 @@ class EventQueueingBehavior extends Behavior
                     'application' => MessageQueue::config('default')['exchange'],
                     'type' => Event::type($event),
                     'version' => $event->getVersion(),
-                    'content-type' => 'application/json'
+                    'content-type' => 'application/json',
                 ]
             );
         }
@@ -29,7 +29,7 @@ class EventQueueingBehavior extends Behavior
     public function implementedEvents()
     {
         return parent::implementedEvents() + [
-            'Model.validSave' => 'validSave'
+            'Model.validSave' => 'validSave',
         ];
     }
 }

@@ -13,7 +13,7 @@ class MessageQueue
     }
 
     /**
-     * An array mapping url schemes to fully qualified Log engine class names
+     * An array mapping url schemes to fully qualified Log engine class names.
      *
      * @var array
      */
@@ -22,7 +22,7 @@ class MessageQueue
     ];
 
     /**
-     * LogEngineRegistry class
+     * LogEngineRegistry class.
      *
      * @var \Cake\Log\LogEngineRegistry
      */
@@ -42,10 +42,12 @@ class MessageQueue
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
      *
-     * @param string $name The connection name.
-     * @return \BroadHorizon\EventSourcing\MessageQueue\MessageQueueInterface A message queue object.
-     * @throws \Cake\Datasource\Exception\MissingDatasourceConfigException When config
-     * data is missing.
+     * @param string $name the connection name
+     *
+     * @return \BroadHorizon\EventSourcing\MessageQueue\MessageQueueInterface a message queue object
+     *
+     * @throws \Cake\Datasource\Exception\MissingDatasourceConfigException when config
+     * data is missing
      */
     public static function get($name)
     {

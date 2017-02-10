@@ -6,7 +6,6 @@ use BroadHorizon\EventSourcing\Event;
 use BroadHorizon\EventSourcing\Model\EventRecordingInterface;
 use Cake\Core\App;
 use Cake\Event\Event as CakeEvent;
-use Cake\Log\Log;
 use Cake\ORM\Behavior;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
@@ -24,7 +23,7 @@ class EventSourcedBehavior extends Behavior
                 $entity->events = $events
                     ->find()
                     ->where([
-                        'entity_id' => $entity->get('id')
+                        'entity_id' => $entity->get('id'),
                     ])
                     ->toList();
 
@@ -35,7 +34,6 @@ class EventSourcedBehavior extends Behavior
 
     public function beforeSave(CakeEvent $cakeEvent, EventRecordingInterface $entity)
     {
-
     }
 
     public function validSave(CakeEvent $cakeEvent, EventRecordingInterface $entity, array $settings)
@@ -64,7 +62,7 @@ class EventSourcedBehavior extends Behavior
     public function implementedEvents()
     {
         return parent::implementedEvents() + [
-            'Model.validSave' => 'validSave'
+            'Model.validSave' => 'validSave',
         ];
     }
 }

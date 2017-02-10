@@ -8,12 +8,13 @@ use Cake\Validation\Validator;
 
 abstract class Command implements CommandInterface
 {
-    abstract public function getPayload() : Payload;
+    abstract public function getPayload(): Payload;
 
-    abstract static function fromPayload(Payload $payload): CommandInterface;
-    abstract static function validator(): Validator;
+    abstract public static function fromPayload(Payload $payload): CommandInterface;
 
-    public static function fromEventPayload(string $type, string $namespace, int $version, Payload $payload) : CommandInterface
+    abstract public static function validator(): Validator;
+
+    public static function fromEventPayload(string $type, string $namespace, int $version, Payload $payload): CommandInterface
     {
         /** @var Event $class */
         $class = static::classFromType($type, $namespace);

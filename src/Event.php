@@ -15,7 +15,7 @@ abstract class Event implements EventInterface
     /**
      * @return int
      */
-    public function getVersion() : int
+    public function getVersion(): int
     {
         return $this->version;
     }
@@ -36,7 +36,7 @@ abstract class Event implements EventInterface
      *
      * @return EventInterface
      */
-    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload) : EventInterface
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload): EventInterface
     {
         /** @var EventInterface $class */
         $class = static::classFromType($type, $namespace);
@@ -60,6 +60,7 @@ abstract class Event implements EventInterface
      * @param string $namespace
      *
      * @return string
+     *
      * @throws \RuntimeException
      */
     public static function classFromType(string $type, string $namespace): string

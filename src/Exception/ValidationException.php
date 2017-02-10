@@ -1,4 +1,5 @@
 <?php
+
 namespace BroadHorizon\EventSourcing\Exception;
 
 use Cake\Network\Exception\BadRequestException;
@@ -6,14 +7,12 @@ use Cake\Utility\Hash;
 
 /**
  * Exception containing validation errors from the model. Useful for API
- * responses where you need an error code in response
- *
+ * responses where you need an error code in response.
  */
 class ValidationException extends BadRequestException
 {
-
     /**
-     * List of validation errors that occurred in the model
+     * List of validation errors that occurred in the model.
      *
      * @var array
      */
@@ -27,7 +26,7 @@ class ValidationException extends BadRequestException
     protected $_validationErrorCount = 0;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param array $errors Errors
      * @param int $code code to report to client
@@ -50,7 +49,7 @@ class ValidationException extends BadRequestException
     }
 
     /**
-     * Returns the list of validation errors
+     * Returns the list of validation errors.
      *
      * @return array
      */
