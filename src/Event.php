@@ -52,7 +52,7 @@ abstract class Event implements EventInterface
      */
     public function getType(): string
     {
-        return Inflector::dasherize(App::shortName(get_class(), 'Model/Event'));
+        return Inflector::dasherize(App::shortName(get_class($this), 'Model/Event'));
     }
 
     /**
