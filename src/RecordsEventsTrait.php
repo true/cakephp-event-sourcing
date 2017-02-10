@@ -55,8 +55,7 @@ trait RecordsEventsTrait
         $this->revision_number = $event->getVersion();
         $this->events[] = $event;
     }
-
-
+    
     /**
      * @param EventInterface $event
      *
