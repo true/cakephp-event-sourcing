@@ -16,10 +16,9 @@ trait RecordsEventsTrait
      */
     public function recordThat(EventInterface $event)
     {
-        $this->events[] = $event;
         $this->unpublishedEvents[] = $event;
 
-        $event->setVersion(count($this->events));
+        $event->setVersion($this->revision_number + 1);
         $this->applyEvent($event);
     }
 
@@ -28,10 +27,7 @@ trait RecordsEventsTrait
      */
     public function getUnpublishedEvents()
     {
-        $events = $this->unpublishedEvents;
-//        $this->unpublishedEvents = [];
-
-        return $events;
+        return $this->unpublishedEvents;
     }
 
     /**
@@ -41,6 +37,13 @@ trait RecordsEventsTrait
      */
     public function applyEvent(EventInterface $event)
     {
+        if ($event->getVersion() !== ($this->revision_number + 1)) {
+            throw new RuntimeException(sprintf(
+                'Invalid event version %s, current entity version is %',
+                $event->getVersion(),
+                $this->revision_number
+            ));
+        }
         $methodName = $this->getApplyMethodName($event);
         if (! method_exists($this, $methodName)) {
             throw new RuntimeException(sprintf(
@@ -49,7 +52,10 @@ trait RecordsEventsTrait
             ));
         }
         call_user_func([$this, $methodName], $event);
+        $this->revision_number = $event->getVersion();
+        $this->events[] = $event;
     }
+
 
     /**
      * @param EventInterface $event
