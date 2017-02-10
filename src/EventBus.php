@@ -25,7 +25,7 @@ class EventBus
     }
 
     /**
-     * Publishes the given event
+     * Publishes the given event.
      *
      * @param EventInterface $event
      *
@@ -34,6 +34,7 @@ class EventBus
     public function publish(EventInterface $event)
     {
         $middlewareChain = $this->middlewareChain;
+
         return $middlewareChain($event);
     }
 
@@ -49,7 +50,7 @@ class EventBus
         };
 
         while ($listener = array_pop($listeners)) {
-            if (! $listener instanceof Listener) {
+            if (!$listener instanceof Listener) {
                 throw InvalidMiddlewareException::forMiddleware($listener);
             }
 

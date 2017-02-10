@@ -2,7 +2,6 @@
 
 namespace BroadHorizon\EventSourcing\Handler\Locator;
 
-use Cake\Core\App;
 use League\Tactician\Exception\MissingHandlerException;
 use League\Tactician\Handler\Locator\HandlerLocator;
 
@@ -22,7 +21,7 @@ class InMemoryInstanceOfLocator implements HandlerLocator
     }
 
     /**
-     * Bind a handler instance to receive all commands with a certain class
+     * Bind a handler instance to receive all commands with a certain class.
      *
      * @param object $handler Handler to receive class
      * @param string $commandClassName Command class e.g. "My\TaskAddedCommand"

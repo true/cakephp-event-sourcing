@@ -23,6 +23,7 @@ class CommandForm extends Form
 
     /**
      * @param array $data
+     *
      * @return CommandInterface
      */
     protected function _execute(array $data)
@@ -35,7 +36,9 @@ class CommandForm extends Form
 
     /**
      * @param array $data
+     *
      * @return CommandInterface
+     *
      * @throws ValidationException
      */
     public function execute(array $data)

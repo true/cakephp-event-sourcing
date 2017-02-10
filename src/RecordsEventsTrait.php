@@ -32,8 +32,6 @@ trait RecordsEventsTrait
 
     /**
      * @param EventInterface $event
-     *
-     * @return void
      */
     public function applyEvent(EventInterface $event)
     {
@@ -45,7 +43,7 @@ trait RecordsEventsTrait
             ));
         }
         $methodName = $this->getApplyMethodName($event);
-        if (! method_exists($this, $methodName)) {
+        if (!method_exists($this, $methodName)) {
             throw new RuntimeException(sprintf(
                 'Method %s not found.',
                 $methodName

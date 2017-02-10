@@ -20,7 +20,7 @@ class AmqpMessageQueue implements MessageQueueInterface
     protected $channel;
 
     /**
-     * __construct method
+     * __construct method.
      *
      * @param array $config Configuration array
      */
@@ -47,12 +47,9 @@ class AmqpMessageQueue implements MessageQueueInterface
             $this->connect();
         }
 
-        $this->channel->publish($body, $headers, $exchange ?? (string)$this->config('exchange'), $routingKey);;
+        $this->channel->publish($body, $headers, $exchange ?? (string) $this->config('exchange'), $routingKey);
     }
 
-    /**
-     *
-     */
     private function connect()
     {
         try {

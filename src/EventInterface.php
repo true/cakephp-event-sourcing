@@ -7,7 +7,7 @@ interface EventInterface
     /**
      * @return int
      */
-    public function getVersion() : int;
+    public function getVersion(): int;
 
     /**
      * @param int $version
@@ -17,7 +17,7 @@ interface EventInterface
     /**
      * @return array
      */
-    public function toPayload() : array;
+    public function toPayload(): array;
 
     /**
      * @param $id
@@ -25,7 +25,7 @@ interface EventInterface
      *
      * @return EventInterface
      */
-    static function fromPayload($id, array $payload): EventInterface;
+    public static function fromPayload($id, array $payload): EventInterface;
 
     /**
      * @param string $type
@@ -36,7 +36,7 @@ interface EventInterface
      *
      * @return EventInterface
      */
-    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload) : EventInterface;
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload): EventInterface;
 
     /**
      * @return string

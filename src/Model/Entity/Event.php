@@ -6,5 +6,4 @@ use Cake\ORM\Entity;
 
 class Event extends Entity
 {
-
 }

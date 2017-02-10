@@ -14,12 +14,11 @@ class EventShell extends Shell
         $this->loadModel('BroadHorizon/EventSourcing.Events');
     }
 
-
     public function getOptionParser()
     {
         $consoleOptionParser = parent::getOptionParser();
         $consoleOptionParser->addSubcommand('requeue', [
-            'help' => 'Requeue all stored events'
+            'help' => 'Requeue all stored events',
         ]);
 
         return $consoleOptionParser;
@@ -28,7 +27,6 @@ class EventShell extends Shell
     public function requeue()
     {
         debug($this->Events->find()->toArray());
-
 
         debug(MessageQueue::get('default'));
 

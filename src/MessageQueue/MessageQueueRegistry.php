@@ -4,22 +4,21 @@ namespace BroadHorizon\EventSourcing\MessageQueue;
 
 use Cake\Core\App;
 use Cake\Core\ObjectRegistry;
-use Psr\Log\LoggerInterface;
 use RuntimeException;
 
 /**
- * Registry of loaded message queues
+ * Registry of loaded message queues.
  */
 class MessageQueueRegistry extends ObjectRegistry
 {
-
     /**
      * Resolve a logger classname.
      *
      * Part of the template method for Cake\Core\ObjectRegistry::load()
      *
-     * @param string $class Partial classname to resolve.
-     * @return string|false Either the correct classname or false.
+     * @param string $class partial classname to resolve
+     *
+     * @return string|false either the correct classname or false
      */
     protected function _resolveClassName($class)
     {
@@ -35,9 +34,9 @@ class MessageQueueRegistry extends ObjectRegistry
      *
      * Part of the template method for Cake\Core\ObjectRegistry::load()
      *
-     * @param string $class The classname that is missing.
-     * @param string $plugin The plugin the logger is missing in.
-     * @return void
+     * @param string $class the classname that is missing
+     * @param string $plugin the plugin the logger is missing in
+     *
      * @throws \RuntimeException
      */
     protected function _throwMissingClassError($class, $plugin)
@@ -50,11 +49,13 @@ class MessageQueueRegistry extends ObjectRegistry
      *
      * Part of the template method for Cake\Core\ObjectRegistry::load()
      *
-     * @param string|\Psr\Log\LoggerInterface $class The classname or object to make.
-     * @param string $alias The alias of the object.
-     * @param array $settings An array of settings to use for the logger.
-     * @return \Psr\Log\LoggerInterface The constructed logger class.
-     * @throws \RuntimeException when an object doesn't implement the correct interface.
+     * @param string|\Psr\Log\LoggerInterface $class the classname or object to make
+     * @param string $alias the alias of the object
+     * @param array $settings an array of settings to use for the logger
+     *
+     * @return \Psr\Log\LoggerInterface the constructed logger class
+     *
+     * @throws \RuntimeException when an object doesn't implement the correct interface
      */
     protected function _create($class, $alias, $settings)
     {
@@ -82,8 +83,7 @@ class MessageQueueRegistry extends ObjectRegistry
     /**
      * Remove a single logger from the registry.
      *
-     * @param string $name The logger name.
-     * @return void
+     * @param string $name the logger name
      */
     public function unload($name)
     {

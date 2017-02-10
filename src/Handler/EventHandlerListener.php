@@ -45,7 +45,7 @@ class EventHandlerListener implements Listener
     }
 
     /**
-     * Executes a command and optionally returns a value
+     * Executes a command and optionally returns a value.
      *
      * @param EventInterface $event
      * @param callable $next

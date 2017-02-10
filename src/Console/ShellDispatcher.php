@@ -20,14 +20,14 @@ class ShellDispatcher extends CakeShellDispatcher
         $this->commandBus = $commandBus;
     }
 
-
     /**
-     * Run the dispatcher
+     * Run the dispatcher.
      *
      * @param CommandBus $commandBus
      * @param array $argv The argv from PHP
      * @param array $extra Extra parameters
-     * @return int The exit code of the shell process.
+     *
+     * @return int the exit code of the shell process
      */
     public static function runWithCommandBus(CommandBus $commandBus, $argv, $extra = [])
     {
