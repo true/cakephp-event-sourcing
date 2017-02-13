@@ -5,6 +5,11 @@ namespace BroadHorizon\EventSourcing;
 interface EventInterface
 {
     /**
+     * @return string
+     */
+    public function getId(): string;
+
+    /**
      * @return int
      */
     public function getVersion(): int;

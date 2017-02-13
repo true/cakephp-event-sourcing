@@ -26,12 +26,12 @@ class AmqpMessageQueue implements MessageQueueInterface
      */
     public function __construct(array $config = [])
     {
-        $this->config($config);
+        $this->setConfig($config);
         $this->client = new Client([
-            'host' => $this->config('host'),
-            'vhost' => $this->config('path'),
-            'username' => $this->config('username'),
-            'password' => $this->config('password'),
+            'host' => $this->getConfig('host'),
+            'vhost' => $this->getConfig('path'),
+            'username' => $this->getConfig('username'),
+            'password' => $this->getConfig('password'),
         ]);
     }
 
@@ -47,7 +47,7 @@ class AmqpMessageQueue implements MessageQueueInterface
             $this->connect();
         }
 
-        $this->channel->publish($body, $headers, $exchange ?? (string) $this->config('exchange'), $routingKey);
+        $this->channel->publish($body, $headers, $exchange ?? (string) $this->getConfig('exchange'), $routingKey);
     }
 
     private function connect()
