@@ -5,13 +5,10 @@ namespace BroadHorizon\EventSourcing\Model\Event\Listener;
 use BroadHorizon\EventSourcing\EventInterface;
 use BroadHorizon\EventSourcing\Listener;
 use BroadHorizon\EventSourcing\MessageQueue\MessageQueueInterface;
-use Cake\Core\InstanceConfigTrait;
 use InvalidArgumentException;
-use RuntimeException;
 
 class QueuePublishListener implements Listener
 {
-    use InstanceConfigTrait;
 
     /**
      * @var MessageQueueInterface
@@ -19,17 +16,19 @@ class QueuePublishListener implements Listener
     private $queue;
 
     /**
+     * @var string
+     */
+    private $applicationName;
+
+    /**
      * QueuePublishListener constructor.
      *
      * @param MessageQueueInterface $queue
-     * @param array $config
+     * @param string $applicationName
      */
-    public function __construct(MessageQueueInterface $queue, array $config)
+    public function __construct(MessageQueueInterface $queue, string $applicationName)
     {
-        $this->setConfig($config);
-        if (!$this->getConfig('application')) {
-            throw new RuntimeException('application config key is required');
-        }
+        $this->applicationName = $applicationName;
         $this->queue = $queue;
     }
 
@@ -52,7 +51,7 @@ class QueuePublishListener implements Listener
             $payload,
             [
                 'entity_id' => $event->getId(),
-                'application' => $this->getConfig('application'),
+                'application' => $this->applicationName,
                 'type' => $event->getType(),
                 'version' => $event->getVersion(),
                 'content-type' => 'application/json',
