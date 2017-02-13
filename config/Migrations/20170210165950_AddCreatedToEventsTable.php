@@ -14,7 +14,7 @@ class AddCreatedToEventsTable extends AbstractMigration
     {
         $this
             ->table('events')
-            ->addColumn('created', 'datetime', [
+            ->addColumn('created', 'timestamp', [
                 'default' => null,
                 'null' => true,
             ])->save();
