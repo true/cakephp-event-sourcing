@@ -5,6 +5,7 @@ namespace BroadHorizon\EventSourcing\Model\Event\Listener;
 use BroadHorizon\EventSourcing\EventInterface;
 use BroadHorizon\EventSourcing\Listener;
 use BroadHorizon\EventSourcing\Model\Table\EventsTable;
+use InvalidArgumentException;
 
 class EventDatabaseListener implements Listener
 {
@@ -28,7 +29,7 @@ class EventDatabaseListener implements Listener
     {
         $payload = json_encode($event->toPayload());
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'json_encode error: ' . json_last_error_msg()
             );
         }
