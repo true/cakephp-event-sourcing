@@ -6,6 +6,8 @@ use BroadHorizon\EventSourcing\EventInterface;
 use BroadHorizon\EventSourcing\Listener;
 use BroadHorizon\EventSourcing\MessageQueue\MessageQueueInterface;
 use Cake\Core\InstanceConfigTrait;
+use InvalidArgumentException;
+use RuntimeException;
 
 class QueuePublishListener implements Listener
 {
@@ -26,7 +28,7 @@ class QueuePublishListener implements Listener
     {
         $this->setConfig($config);
         if (!$this->getConfig('application')) {
-            throw new \RuntimeException('application config key is required');
+            throw new RuntimeException('application config key is required');
         }
         $this->queue = $queue;
     }
@@ -41,7 +43,7 @@ class QueuePublishListener implements Listener
     {
         $payload = json_encode($event->toPayload());
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'json_encode error: ' . json_last_error_msg()
             );
         }
