@@ -8,6 +8,7 @@ class DummyMessageQueue implements MessageQueueInterface
      * @var bool
      */
     private $dump;
+
     /**
      * __construct method.
      *
@@ -29,10 +30,10 @@ class DummyMessageQueue implements MessageQueueInterface
         if (!$this->dump) {
             return;
         }
-        echo ('var_dump($headers): ');
+        echo 'var_dump($headers): ';
         var_dump($headers);
 
-        echo ('var_dump($body): ');
+        echo 'var_dump($body): ';
         var_dump($body);
     }
 }

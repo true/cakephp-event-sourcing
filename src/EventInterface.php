@@ -8,6 +8,7 @@ interface EventInterface
      * @return string
      */
     public function getId(): string;
+
     /**
      * @return int
      */

@@ -11,7 +11,6 @@ class QueuePublishListener implements Listener
 {
     use InstanceConfigTrait;
 
-
     /**
      * @var MessageQueueInterface
      */
@@ -26,7 +25,7 @@ class QueuePublishListener implements Listener
     public function __construct(MessageQueueInterface $queue, array $config)
     {
         $this->setConfig($config);
-        if (! $this->getConfig('application')) {
+        if (!$this->getConfig('application')) {
             throw new \RuntimeException('application config key is required');
         }
         $this->queue = $queue;
