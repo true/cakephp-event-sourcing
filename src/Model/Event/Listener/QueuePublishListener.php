@@ -9,7 +9,6 @@ use InvalidArgumentException;
 
 class QueuePublishListener implements Listener
 {
-
     /**
      * @var MessageQueueInterface
      */
