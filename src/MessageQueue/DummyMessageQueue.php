@@ -2,21 +2,24 @@
 
 namespace BroadHorizon\EventSourcing\MessageQueue;
 
+use Cake\Core\InstanceConfigTrait;
+
 class DummyMessageQueue implements MessageQueueInterface
 {
-    /**
-     * @var bool
-     */
-    private $dump;
+    use InstanceConfigTrait;
+
+    protected $_defaultConfig = [
+        'log' => false,
+    ];
 
     /**
      * __construct method.
      *
-     * @param bool $dump
+     * @param array $config
      */
-    public function __construct(bool $dump = false)
+    public function __construct(array $config = [])
     {
-        $this->dump = $dump;
+        $this->setConfig($config);
     }
 
     /**
@@ -27,9 +30,10 @@ class DummyMessageQueue implements MessageQueueInterface
      */
     public function publish(string $body, array $headers = [], string $routingKey = '', string $exchange = '')
     {
-        if (!$this->dump) {
+        if (!$this->getConfig('log')) {
             return;
         }
+
         echo 'var_dump($headers): ';
         var_dump($headers);
 

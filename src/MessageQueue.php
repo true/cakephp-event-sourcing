@@ -2,6 +2,7 @@
 
 namespace BroadHorizon\EventSourcing;
 
+use BroadHorizon\EventSourcing\MessageQueue\Exception\MissingMessageQueueConfigException;
 use BroadHorizon\EventSourcing\MessageQueue\MessageQueueRegistry;
 use Cake\Core\StaticConfigTrait;
 use Cake\Datasource\Exception\MissingDatasourceConfigException;
@@ -9,7 +10,7 @@ use Cake\Datasource\Exception\MissingDatasourceConfigException;
 class MessageQueue
 {
     use StaticConfigTrait {
-//        config as protected _config;
+        parseDsn as protected _parseDsn;
     }
 
     /**
@@ -24,15 +25,22 @@ class MessageQueue
     /**
      * LogEngineRegistry class.
      *
-     * @var \Cake\Log\LogEngineRegistry
+     * @var \BroadHorizon\EventSourcing\MessageQueue
      */
     protected static $_registry;
 
-//    public static function config($key, $config = null)
-//    {
-//        debug($key);
-//        debug($config);
-//    }
+    public static function parseDsn($config = null)
+    {
+        $config = static::_parseDsn($config);
+
+        if (isset($config['path']) && empty($config['vhost'])) {
+            $config['vhost'] = substr($config['path'], 1);
+        }
+
+        unset($config['path']);
+
+        return $config;
+    }
 
     /**
      * Get a connection.
@@ -46,13 +54,13 @@ class MessageQueue
      *
      * @return \BroadHorizon\EventSourcing\MessageQueue\MessageQueueInterface a message queue object
      *
-     * @throws \Cake\Datasource\Exception\MissingDatasourceConfigException when config
+     * @throws \BroadHorizon\EventSourcing\MessageQueue\Exception\MissingMessageQueueConfigException when config
      * data is missing
      */
     public static function get($name)
     {
         if (empty(static::$_config[$name])) {
-            throw new MissingDatasourceConfigException(['name' => $name]);
+            throw new MissingMessageQueueConfigException(['name' => $name]);
         }
         if (empty(static::$_registry)) {
             static::$_registry = new MessageQueueRegistry();
