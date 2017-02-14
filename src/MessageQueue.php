@@ -32,9 +32,8 @@ class MessageQueue
     public static function parseDsn($config = null)
     {
         $config = static::_parseDsn($config);
-
         if (isset($config['path']) && empty($config['vhost'])) {
-            $config['vhost'] = substr($config['path'], 1);
+            $config['vhost'] = $config['path'];
         }
 
         unset($config['path']);
