@@ -19,6 +19,7 @@ class AmqpMessageQueue implements MessageQueueInterface
      */
     protected $channel;
 
+    protected $_defaultConfig = [];
     /**
      * __construct method.
      *
@@ -29,7 +30,7 @@ class AmqpMessageQueue implements MessageQueueInterface
         $this->setConfig($config);
         $this->client = new Client([
             'host' => $this->getConfig('host'),
-            'vhost' => $this->getConfig('path'),
+            'vhost' => $this->getConfig('vhost'),
             'username' => $this->getConfig('username'),
             'password' => $this->getConfig('password'),
         ]);
