@@ -43,15 +43,12 @@ class CommandForm extends Form
      */
     public function execute(array $data)
     {
+        /** @var bool|CommandInterface $result */
         $result = parent::execute($data);
         if (!$result) {
             throw new ValidationException($this->errors());
         }
 
-        if ($result instanceof CommandInterface) {
-            return $result;
-        }
-
-        throw new \UnexpectedValueException();
+        return $result;
     }
 }

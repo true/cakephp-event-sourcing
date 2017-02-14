@@ -38,7 +38,7 @@ class MessageQueueTest extends TestCase
             'username' => 'username',
             'password' => 'password',
             'log' => '1',
-            'vhost' => 'test',
+            'vhost' => '/test',
         ];
         $this->assertEquals($expected, $result);
     }
