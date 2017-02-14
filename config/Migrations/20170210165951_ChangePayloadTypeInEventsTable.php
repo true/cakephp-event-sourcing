@@ -14,8 +14,9 @@ class ChangePayloadTypeInEventsTable extends AbstractMigration
     {
         $this
             ->table('events')
-            ->changeColumn('payload', 'longtext', [
+            ->changeColumn('payload', 'text', [
                 'null' => false,
+                'limit' => \Phinx\Db\Adapter\MysqlAdapter::TEXT_LONG
             ])->save();
     }
 }
