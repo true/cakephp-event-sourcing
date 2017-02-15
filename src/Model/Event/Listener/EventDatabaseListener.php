@@ -27,18 +27,11 @@ class EventDatabaseListener implements Listener
      */
     public function apply(EventInterface $event, callable $next)
     {
-        $payload = json_encode($event->toPayload());
-        if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new InvalidArgumentException(
-                'json_encode error: ' . json_last_error_msg()
-            );
-        }
-
         $data = [
             'entity_id' => $event->getId(),
             'version' => $event->getVersion(),
             'type' => $event->getType(),
-            'payload' => $payload,
+            'payload' => $event->toPayload(),
         ];
 
         $newEntity = $this->eventsTable->newEntity($data);

@@ -3,8 +3,9 @@
 namespace BroadHorizon\EventSourcing;
 
 use Cake\Utility\Hash;
+use JsonSerializable;
 
-class Payload
+class Payload implements JsonSerializable
 {
     /**
      * @var array
@@ -19,5 +20,10 @@ class Payload
     public function get(string $name)
     {
         return Hash::get($this->data, $name);
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->data;
     }
 }

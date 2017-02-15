@@ -2,6 +2,7 @@
 
 namespace BroadHorizon\EventSourcing\Model\Table;
 
+use Cake\Database\Schema\TableSchema;
 use Cake\ORM\Table;
 
 class EventsTable extends Table
@@ -12,5 +13,12 @@ class EventsTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Search.Search');
+    }
+
+    protected function _initializeSchema(TableSchema $schema)
+    {
+        $schema->columnType('payload', 'json');
+
+        return $schema;
     }
 }
