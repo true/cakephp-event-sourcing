@@ -5,7 +5,6 @@ namespace BroadHorizon\EventSourcing;
 use BroadHorizon\EventSourcing\MessageQueue\Exception\MissingMessageQueueConfigException;
 use BroadHorizon\EventSourcing\MessageQueue\MessageQueueRegistry;
 use Cake\Core\StaticConfigTrait;
-use Cake\Datasource\Exception\MissingDatasourceConfigException;
 
 class MessageQueue
 {
