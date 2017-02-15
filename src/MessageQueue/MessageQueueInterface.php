@@ -16,5 +16,5 @@ interface MessageQueueInterface
      * @param string $routingKey
      * @param string $exchange
      */
-    public function publish(string $body, array $headers = [], string $routingKey = '', string $exchange = '');
+    public function publish(string $body, array $headers = [], string $routingKey = '', string $exchange = null);
 }
