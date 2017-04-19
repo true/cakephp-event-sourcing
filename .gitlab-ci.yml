@@ -1,0 +1,47 @@
+image: php:7.0
+
+variables:
+ # Configure mysql environment variables (https://hub.docker.com/r/_/mysql/)
+ MYSQL_DATABASE: application
+ MYSQL_ROOT_PASSWORD: root
+
+stages:
+- test
+
+# Composer stores all downloaded packages in the vendor/ directory.
+# Do not use the following if the vendor/ directory is commited to
+# your git repository.
+cache:
+  paths:
+  - vendor/
+
+test:coding-standards:
+  before_script:
+  - bash ci/prepare.sh > /dev/null
+  - bash ci/prepare_backend.sh > /dev/null
+  - source ci/setup_ssh_agent.sh
+  - bash ci/install_backend.sh  > /dev/null
+  script:
+  - vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./config ./src
+  allow_failure: true
+
+test:phpcs-fixer-coding-standards:
+  before_script:
+  - bash ci/prepare.sh > /dev/null
+  - bash ci/prepare_backend.sh > /dev/null
+  - source ci/setup_ssh_agent.sh
+  - bash ci/install_backend.sh  > /dev/null
+  script:
+  - ./vendor/bin/php-cs-fixer fix --dry-run --allow-risky=yes
+
+test:backend-tests:
+  services:
+  - mysql:latest
+  - rabbitmq:latest
+  before_script:
+  - bash ci/prepare.sh > /dev/null
+  - bash ci/prepare_backend.sh > /dev/null
+  - source ci/setup_ssh_agent.sh
+  - bash ci/install_backend.sh  > /dev/null
+  script:
+  - vendor/bin/phpunit

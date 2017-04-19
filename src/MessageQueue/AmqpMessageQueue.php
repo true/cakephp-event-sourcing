@@ -19,7 +19,10 @@ class AmqpMessageQueue implements MessageQueueInterface
      */
     protected $channel;
 
-    protected $_defaultConfig = [];
+    protected $_defaultConfig = [
+        'vhost' => '/',
+    ];
+
     /**
      * __construct method.
      *
@@ -53,12 +56,8 @@ class AmqpMessageQueue implements MessageQueueInterface
 
     private function connect()
     {
-        try {
-            $this->client->connect();
-            $this->channel = $this->client->channel();
-        } catch (\Exception $exception) {
-            debug($exception);
-        }
+        $this->client->connect();
+        $this->channel = $this->client->channel();
     }
 
     /**

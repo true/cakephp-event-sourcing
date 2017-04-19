@@ -12,7 +12,6 @@ class EventsTable extends Table
         parent::initialize($config);
 
         $this->addBehavior('Timestamp');
-        $this->addBehavior('Search.Search');
     }
 
     protected function _initializeSchema(TableSchema $schema)
