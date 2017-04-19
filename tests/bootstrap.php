@@ -65,6 +65,7 @@ try {
 $requiredEnvironmentVariables = [
     'DEBUG',
     'DATABASE_TEST_URL',
+    'AMQP_URL',
 ];
 foreach ($requiredEnvironmentVariables as $environmentVariable) {
     if (env($environmentVariable) !== null) {
