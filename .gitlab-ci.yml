@@ -44,4 +44,4 @@ test:backend-tests:
   - source ci/setup_ssh_agent.sh
   - bash ci/install_backend.sh  > /dev/null
   script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-text --colors=never
