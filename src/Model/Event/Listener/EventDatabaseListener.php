@@ -5,7 +5,6 @@ namespace BroadHorizon\EventSourcing\Model\Event\Listener;
 use BroadHorizon\EventSourcing\EventInterface;
 use BroadHorizon\EventSourcing\Listener;
 use BroadHorizon\EventSourcing\Model\Table\EventsTable;
-use InvalidArgumentException;
 
 class EventDatabaseListener implements Listener
 {
