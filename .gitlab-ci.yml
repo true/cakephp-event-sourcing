@@ -6,16 +6,23 @@ variables:
  MYSQL_ROOT_PASSWORD: root
 
 stages:
+- build
 - test
 
-# Composer stores all downloaded packages in the vendor/ directory.
-# Do not use the following if the vendor/ directory is commited to
-# your git repository.
 cache:
   paths:
   - vendor/
 
+build:install-dependencies:
+  stage: build
+  script:
+  - bash ci/prepare_backend.sh > /dev/null
+  - bash ci/install_backend.sh > /dev/null
+
 test:coding-standards:
+  stage: test
+  dependencies:
+  - build:install-dependencies
   before_script:
   - bash ci/prepare_backend.sh > /dev/null
   - source ci/setup_ssh_agent.sh
@@ -25,6 +32,9 @@ test:coding-standards:
   allow_failure: true
 
 test:phpcs-fixer-coding-standards:
+  stage: test
+  dependencies:
+  - build:install-dependencies
   before_script:
   - bash ci/prepare_backend.sh > /dev/null
   - source ci/setup_ssh_agent.sh
@@ -33,6 +43,9 @@ test:phpcs-fixer-coding-standards:
   - ./vendor/bin/php-cs-fixer fix --dry-run --allow-risky=yes
 
 test:backend-tests:
+  stage: test
+  dependencies:
+  - build:install-dependencies
   services:
   - mysql:latest
   - rabbitmq:latest
