@@ -26,28 +26,28 @@ interface EventInterface
     public function setDate(DateTimeInterface $date);
 
     /**
-     * @return array
+     * @return Payload
      */
-    public function toPayload(): array;
+    public function toPayload(): Payload;
 
     /**
      * @param $id
-     * @param array $payload
+     * @param Payload $payload
      *
      * @return EventInterface
      */
-    public static function fromPayload($id, array $payload): EventInterface;
+    public static function fromPayload($id, Payload $payload): EventInterface;
 
     /**
      * @param string $type
      * @param string $namespace
      * @param int $version
      * @param string $id
-     * @param array $payload
+     * @param Payload $payload
      *
      * @return EventInterface
      */
-    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload): EventInterface;
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, Payload $payload): EventInterface;
 
     /**
      * @return string
