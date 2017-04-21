@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 class TestCommand extends AbstractCommand
 {
 
-    public function getPayload(): Payload
+    public function toPayload(): Payload
     {
         // TODO: Implement getPayload() method.
     }
