@@ -8,10 +8,27 @@ use DateTimeInterface;
 
 abstract class Event implements EventInterface
 {
+    protected $id;
+
     /**
      * @var int
      */
     protected $version;
+
+    protected $date;
+
+    public function __construct(string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
     /**
      * @return int
