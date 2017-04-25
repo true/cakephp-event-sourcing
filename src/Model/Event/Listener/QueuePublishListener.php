@@ -54,6 +54,7 @@ class QueuePublishListener implements Listener
                 'type' => $event->getType(),
                 'version' => $event->getVersion(),
                 'content-type' => 'application/json',
+                'delivery-mode' => 2,
             ]
         );
 
