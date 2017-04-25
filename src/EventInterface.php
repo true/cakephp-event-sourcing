@@ -2,6 +2,8 @@
 
 namespace BroadHorizon\EventSourcing;
 
+use DateTimeInterface;
+
 interface EventInterface
 {
     /**
@@ -18,6 +20,10 @@ interface EventInterface
      * @param int $version
      */
     public function setVersion(int $version);
+
+    public function getDate(): DateTimeInterface;
+
+    public function setDate(DateTimeInterface $date);
 
     /**
      * @return array
