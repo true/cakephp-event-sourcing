@@ -60,11 +60,11 @@ abstract class Event implements EventInterface
      * @param string $type
      * @param string $namespace
      * @param int $version
-     * @param array $payload
+     * @param Payload $payload
      *
      * @return EventInterface
      */
-    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload): EventInterface
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, Payload $payload): EventInterface
     {
         /** @var EventInterface $class */
         $class = static::classFromType($type, $namespace);
