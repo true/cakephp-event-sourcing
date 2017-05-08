@@ -37,7 +37,7 @@ trait RecordsEventsTrait
     {
         if ($event->getVersion() !== ($this->revision_number + 1)) {
             throw new RuntimeException(sprintf(
-                'Invalid event version %s, current entity version is %',
+                'Invalid event version %s, current entity version is %s',
                 $event->getVersion(),
                 $this->revision_number
             ));
