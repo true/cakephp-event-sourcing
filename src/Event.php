@@ -4,6 +4,7 @@ namespace BroadHorizon\EventSourcing;
 
 use Cake\Core\App;
 use Cake\Utility\Inflector;
+use DateTimeInterface;
 
 abstract class Event implements EventInterface
 {
@@ -26,6 +27,16 @@ abstract class Event implements EventInterface
     public function setVersion(int $version)
     {
         $this->version = $version;
+    }
+
+    public function getDate(): DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(DateTimeInterface $date)
+    {
+        $this->date = $date;
     }
 
     /**

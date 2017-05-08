@@ -2,6 +2,7 @@
 
 namespace BroadHorizon\EventSourcing;
 
+use Carbon\MutableDateTime;
 use RuntimeException;
 
 trait RecordsEventsTrait
@@ -19,6 +20,7 @@ trait RecordsEventsTrait
         $this->unpublishedEvents[] = $event;
 
         $event->setVersion($this->revision_number + 1);
+        $event->setDate(new MutableDateTime());
         $this->applyEvent($event);
     }
 

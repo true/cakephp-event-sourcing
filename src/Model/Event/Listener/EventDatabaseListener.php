@@ -31,6 +31,7 @@ class EventDatabaseListener implements Listener
             'version' => $event->getVersion(),
             'type' => $event->getType(),
             'payload' => $event->toPayload(),
+            'created' => $event->getDate(),
         ];
 
         $newEntity = $this->eventsTable->newEntity($data);
