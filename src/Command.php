@@ -8,7 +8,7 @@ use Cake\Validation\Validator;
 
 abstract class Command implements CommandInterface
 {
-    abstract public function getPayload(): Payload;
+    abstract public function toPayload(): Payload;
 
     abstract public static function fromPayload(Payload $payload): CommandInterface;
 

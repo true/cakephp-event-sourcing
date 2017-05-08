@@ -25,7 +25,7 @@ class TestCommand extends Command
         return $this->email;
     }
 
-    public function getPayload(): Payload
+    public function toPayload(): Payload
     {
         return new Payload([
             'email' => $this->email,

@@ -4,7 +4,7 @@ namespace BroadHorizon\EventSourcing;
 
 interface CommandInterface
 {
-    public function getPayload(): Payload;
+    public function toPayload(): Payload;
 
     public static function fromPayload(Payload $payload): CommandInterface;
 

@@ -8,10 +8,27 @@ use DateTimeInterface;
 
 abstract class Event implements EventInterface
 {
+    protected $id;
+
     /**
      * @var int
      */
     protected $version;
+
+    protected $date;
+
+    public function __construct(string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
     /**
      * @return int
@@ -43,11 +60,11 @@ abstract class Event implements EventInterface
      * @param string $type
      * @param string $namespace
      * @param int $version
-     * @param array $payload
+     * @param Payload $payload
      *
      * @return EventInterface
      */
-    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, array $payload): EventInterface
+    public static function fromEventPayload(string $type, string $namespace, int $version, string $id, Payload $payload): EventInterface
     {
         /** @var EventInterface $class */
         $class = static::classFromType($type, $namespace);
