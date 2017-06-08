@@ -16,29 +16,24 @@ abstract class Command implements CommandInterface
 
     public static function fromEventPayload(string $type, string $namespace, Payload $payload): CommandInterface
     {
-        /** @var Event $class */
+        /** @var Command $class */
         $class = static::classFromType($type, $namespace);
-        $event = $class::fromPayload($payload);
+        $command = $class::fromPayload($payload);
 
-        $event->setVersion($version);
-
-        return $event;
+        return $command;
     }
 
     public static function type(CommandInterface $command)
     {
-        return Inflector::dasherize(App::shortName(get_class($command), 'Model/Command'));
+        return Inflector::dasherize(App::shortName(get_class($command), 'Command'));
     }
 
     public static function classFromType(string $type, string $namespace)
     {
-        list($entity, $event) = explode('/', $type);
-
-        $entity = Inflector::camelize($entity);
-        $event = ucfirst(Inflector::variable($event));
+        $command = ucfirst(Inflector::variable($type));
 
         $namespace = str_replace('\\', '/', $namespace);
 
-        return App::className($namespace . '.' . $entity . '/' . $event, 'Model/Command');
+        return App::className($namespace . '.' . $command, 'Command');
     }
 }
