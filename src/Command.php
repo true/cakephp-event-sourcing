@@ -14,7 +14,7 @@ abstract class Command implements CommandInterface
 
     abstract public static function validator(): Validator;
 
-    public static function fromEventPayload(string $type, string $namespace, int $version, Payload $payload): CommandInterface
+    public static function fromEventPayload(string $type, string $namespace, Payload $payload): CommandInterface
     {
         /** @var Event $class */
         $class = static::classFromType($type, $namespace);
