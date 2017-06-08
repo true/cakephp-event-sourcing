@@ -54,6 +54,15 @@ class AmqpMessageQueue implements MessageQueueInterface
         $this->channel->publish($body, $headers, $exchange ?? (string) $this->getConfig('exchange'), $routingKey);
     }
 
+    public function consume(callable $callback)
+    {
+        if (!$this->isConnected()) {
+            $this->connect();
+        }
+
+        $this->channel->run($callback, $this->getConfig('queue'));
+    }
+
     private function connect()
     {
         $this->client->connect();
